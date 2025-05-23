@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AturCuan - Kelola Keuangan Mahasiswa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+      color: #333;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #ccc;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: #007bff;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+
+    nav a.login {
+      background-color: #007bff;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      font-size: 0.9rem;
+    }
+
+    .hero {
+      padding: 3rem 2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero h1 {
+      color: #007bff;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 2px solid #007bff;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn.daftar {
+      background: white;
+      color: #007bff;
+    }
+
+    .btn.daftar:hover {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn.masuk {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn.masuk:hover {
+      background: #0056b3;
+    }
+
+    footer {
+      background: #007bff;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .hero {
+        padding: 2rem 1rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">AturCuan</div>
+    <nav>
+      <a href="#">Beranda</a>
+      <a href="#">Layanan</a>
+      <a href="#">Tentang Kami</a>
+      <a href="login.html" class="login">LOGIN</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Membantu Mahasiswa Mengelola Keuangan</h1>
+      <p>Catat pengeluaran, atur pemasukan, dan pantau keuangan dalam satu tempat.</p>
+      <div class="cta-buttons">
+        <a href="login.html#register" class="btn daftar">DAFTAR</a>
+        <a href="login.html" class="btn masuk">MASUK</a>
+      </div>
+      <p style="margin-top: 2rem; font-size: 0.9rem;">
+        Jangan biarkan uangmu hilang tanpa jejak. Mulai atur keuanganmu sekarang dan rasakan perbedaannya!
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AturCuan | Tentang Kami | Kebijakan Privasi | Kontak</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Target Keuangan - AturCuan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background: #007bff;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: 500;
+    }
+
+    main.form-page {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .form-box {
+      background: white;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .form-box h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .btn {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    #targetList {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    #targetList li {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background-color: #f1f1f1;
+      margin-top: 2rem;
+    }
+  
+button.delete-target {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button.delete-target {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button.edit-target {
+  background-color: #ffc107;
+  color: black;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+</style>
+</head>
+<body>
+<header>
+<h1>Target Keuangan</h1>
+<nav>
+<a href="dashboard.html">Dashboard</a>
+<a href="laporan.html">Laporan</a>
+<a href="target.html">Target</a>
+<a href="index.html" onclick="logout()">Logout</a>
+</nav>
+</header>
+<main class="form-page">
+<div class="form-box">
+<h2>Tambah Target</h2>
+<label for="targetName">Nama Target</label>
+<input id="targetName" placeholder="Contoh: Beli Laptop" type="text"/>
+<label for="targetAmount">Jumlah Target (Rp)</label>
+<input id="targetAmount" placeholder="Contoh: 5000000" type="number"/>
+<label for="targetProgress">Progress Saat Ini (Rp)</label>
+<input id="targetProgress" placeholder="Contoh: 1500000" type="number"/>
+<button class="btn" onclick="tambahTarget()">Simpan Target</button>
+</div>
+<div class="form-box">
+<h2>Daftar Target</h2>
+<ul id="targetList"></ul>
+</div>
+</main>
+<footer>
+<p>© 2025 AturCuan</p>
+</footer>
+<script>
+    const targetList = JSON.parse(localStorage.getItem("aturcuan_targets")) || [];
+
+    function tambahTarget() {
+      const name = document.getElementById("targetName").value.trim();
+      const amount = parseInt(document.getElementById("targetAmount").value);
+      const progress = parseInt(document.getElementById("targetProgress").value);
+
+      if (!name || isNaN(amount) || isNaN(progress)) {
+        alert("Lengkapi semua data target!");
+        return;
+      }
+
+      targetList.push({ name, amount, progress });
+      localStorage.setItem("aturcuan_targets", JSON.stringify(targetList));
+      tampilkanTarget();
+
+      document.getElementById("targetName").value = "";
+      document.getElementById("targetAmount").value = "";
+      document.getElementById("targetProgress").value = "";
+    }
+
+    function tampilkanTarget() {
+      const ul = document.getElementById("targetList");
+      ul.innerHTML = "";
+      if (targetList.length === 0) {
+        ul.innerHTML = "<li>Belum ada target</li>";
+        return;
+      }
+
+      targetList.forEach(t => {
+        const persen = Math.min(100, (t.progress / t.amount) * 100).toFixed(1);
+        ul.innerHTML += `<li><strong>${t.name}</strong><br>Rp${t.progress.toLocaleString()} dari Rp${t.amount.toLocaleString()} (${persen}%)</li>`;
+      });
+    }
+
+    function logout() {
+      // Placeholder logout logic
+      alert("Logout berhasil!");
+    }
+
+    document.addEventListener("DOMContentLoaded", tampilkanTarget);
+  
+function hapusTarget(index) {
+  const targets = JSON.parse(localStorage.getItem("aturcuan_targets") || "[]");
+  targets.splice(index, 1);
+  localStorage.setItem("aturcuan_targets", JSON.stringify(targets));
+  tampilkanTarget();
+}
+
+function editTarget(index) {
+  const targets = JSON.parse(localStorage.getItem("aturcuan_targets") || "[]");
+  const t = targets[index];
+  const newName = prompt("Edit nama target:", t.name);
+  const newAmount = prompt("Edit jumlah target:", t.amount);
+  const newProgress = prompt("Edit progress (%):", t.progress);
+  if (newName && newAmount && newProgress) {
+    targets[index] = {
+      name: newName,
+      amount: parseFloat(newAmount),
+      progress: parseFloat(newProgress)
+    };
+    localStorage.setItem("aturcuan_targets", JSON.stringify(targets));
+    tampilkanTarget();
+  }
+}
+</script>
+</body>
+</html>

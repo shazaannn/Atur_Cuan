@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login - AturCuan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    nav {
+      margin-top: 1rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+    }
+
+    main.form-page {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .form-box {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-box h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .btn {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .btn.secondary {
+      background-color: #6c757d;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    footer {
+      background-color: #f1f1f1;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+<header>
+<h1>AturCuan</h1>
+<nav>
+<a href="#">Beranda</a>
+</nav>
+</header>
+<main class="form-page">
+<div class="form-box">
+<h2>Masuk</h2>
+<form onsubmit="login(event)">
+<label>Email</label>
+<input id="loginEmail" required="" type="email"/>
+<label>Password</label>
+<input id="loginPassword" required="" type="password"/>
+<button class="btn" type="submit">Masuk</button>
+</form>
+</div>
+<div class="form-box" id="register">
+<h2>Daftar</h2>
+<form onsubmit="register(event)">
+<label>Nama</label>
+<input id="regName" required="" type="text"/>
+<label>Email</label>
+<input id="regEmail" required="" type="email"/>
+<label>Password</label>
+<input id="regPassword" required="" type="password"/>
+<label>Tanggal Lahir</label>
+<input id="regDob" required="" type="date"/>
+<button class="btn secondary" type="submit">Buat Akun</button>
+</form>
+</div>
+</main>
+<footer>
+<p>© 2025 AturCuan</p>
+</footer>
+<script>
+    // Simulasi penyimpanan user
+    let registeredUsers = [];
+
+    function register(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("regName").value;
+      const email = document.getElementById("regEmail").value;
+      const password = document.getElementById("regPassword").value;
+      const dob = document.getElementById("regDob").value;
+
+      if (!name || !email || !password || !dob) {
+        alert("Mohon lengkapi semua data!");
+        return;
+      }
+
+      // Cek apakah email sudah terdaftar
+      const existingUser = registeredUsers.find(user => user.email === email);
+      if (existingUser) {
+        alert("Email sudah terdaftar. Silakan login.");
+        return;
+      }
+
+      // Simpan user
+      registeredUsers.push({ name, email, password, dob });
+      alert("Registrasi berhasil. Silakan login.");
+    }
+
+    function login(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      const user = registeredUsers.find(
+        user => user.email === email && user.password === password
+      );
+
+      if (user) {
+        alert("Login berhasil!\nSelamat datang, " + user.name);
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Email atau password salah!");
+      }
+    }
+  </script>
+</body>
+</html>
