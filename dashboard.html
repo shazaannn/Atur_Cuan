@@ -113,13 +113,14 @@
 <body>
 <header>
 <h1>Dashboard AturCuan</h1>
-<p id="welcomeUser">Halo, Pengguna!</p>
+
 <nav>
 <a href="dashboard.html">Dashboard</a>
 <a href="laporan.html">Laporan</a>
 <a href="target.html">Target</a>
 <a href="index.html" onclick="logout()">Logout</a>
 </nav>
+
 </header>
 <main class="form-page">
 <div class="form-box">
@@ -131,7 +132,16 @@
 <option value="tabungan">Tabungan</option>
 </select>
 <label>Jumlah (Rp)</label>
-<input id="jumlah" placeholder="Contoh: 1000000" type="number"/><label for="tanggal">Tanggal Transaksi</label><input id="tanggal" type="date"/><label>Kategori (jika pengeluaran)</label><input id="kategori" placeholder="Contoh: makan, transportasi" type="text"/>
+<input id="jumlah" placeholder="Contoh: 1000000" type="number"/><label for="tanggal">Tanggal Transaksi</label><input id="tanggal" type="date"/>
+<label>Kategori (jika pengeluaran)</label>
+<select id="kategori">
+  <option value="Makan & Minum">Makan & Minum</option>
+  <option value="Transportasi">Transportasi</option>
+  <option value="Belanja">Belanja</option>
+  <option value="Hiburan">Hiburan</option>
+  <option value="Lain-lain">Lain-lain</option>
+</select>
+
 <button class="btn" onclick="tambahTransaksi()">Tambahkan</button>
 </div>
 <div class="form-box">
@@ -204,7 +214,15 @@ function logout() {
   window.location.href = "index.html";
 }
 
-window.onload = updateRingkasan;
+
+window.onload = () => {
+  updateRingkasan();
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+  if (user && user.name) {
+    document.getElementById("welcomeUser").textContent = `Halo, ${user.name}!`;
+  }
+};
+
 
 function resetData() {
   if (confirm("Yakin ingin reset semua data keuangan?")) {

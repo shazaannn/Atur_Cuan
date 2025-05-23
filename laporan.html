@@ -201,21 +201,28 @@ new Chart(pieCtx, {
       }
     });
 
-    const pieCtx = document.getElementById('pieChart').getContext('2d');
-    const rincian = dataKeuangan.rincianPengeluaran;
-    new Chart(pieCtx, {
-      type: 'pie',
-      data: {
-        labels: ['Belanja', 'Makan & Minum', 'Transportasi', 'Hiburan'],
-        datasets: [{
-          data: [rincian.belanja, rincian.makan, rincian.transportasi, rincian.hiburan],
-          backgroundColor: ['#17a2b8', '#fd7e14', '#6f42c1', '#20c997']
-        }]
-      },
-      options: {
-        responsive: true
-      }
-    });
+    
+const rincian = dataKeuangan.rincianPengeluaran || {};
+const kategori = Object.keys(rincian);
+const nilai = kategori.map(k => rincian[k]);
+
+const pieCtx = document.getElementById('pieChart').getContext('2d');
+new Chart(pieCtx, {
+  type: 'pie',
+  data: {
+    labels: kategori,
+    datasets: [{
+      data: nilai,
+      backgroundColor: [
+        '#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0', '#9966ff', '#ff9f40', '#17a2b8'
+      ]
+    }]
+  },
+  options: {
+    responsive: true
+  }
+});
+
 
     function logout() {
       alert("Logout berhasil!");
